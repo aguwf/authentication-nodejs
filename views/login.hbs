@@ -86,8 +86,10 @@
             body: JSON.stringify({ username, password })
         })
             .then(async (res) => {
-                if (!res.ok) {
-                    alert('Invalid username and/or password');
+                console.log("🚀 ~ file: login.hbs ~ line 101 ~ .then ~ res", res)
+
+                if (res?.status === 400) {
+                    alert('Invalid username or password');
                     return;
                 }
                 // set user to local storage
@@ -95,9 +97,7 @@
                 window.location.href = '/';
             })
             .catch(err => {
-                if (err) {
-                    alert(JSON.stringify(err))
-                }
+                console.log("🚀 ~ file: login.hbs ~ line 103 ~ loginForm.addEventListener ~ err", err)
             })
     })
 </script>
