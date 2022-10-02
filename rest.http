@@ -1,0 +1,43 @@
+### Login
+GET http://localhost:3939/login
+
+### Register new user
+POST http://localhost:3939/v1/register HTTP/1.1
+content-type: application/json
+
+{
+    "email": "ternipdev@gmail.com",
+    "password": "ThaiTran@`123",
+    "confirm": "ThaiTran@`123",
+    "username": "Ternip",
+    "phone": "0364672957",
+    "address": "Phuc Loi"
+}
+
+### Login with username and password
+POST http://localhost:3939/v1/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "Ternip",
+    "password": "ThaiTran@`456"
+}
+
+### Change password
+POST http://localhost:3939/v1/change-password HTTP/1.1
+content-type: application/json
+
+{
+    "username": "Ternip",
+    "oldPassword": "ThaiTran@`123",
+    "newPassword": "ThaiTran@`456",
+    "confirm": "ThaiTran@`456"
+}
+
+### Reset password
+POST http://localhost:3939/v1/reset-password HTTP/1.1
+content-type: application/json
+
+{
+    "email": "thaitq@ikong.vn"
+}

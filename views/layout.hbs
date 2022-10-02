@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{{title}}</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <div class="container">
+    <header class="header flex items-center">
+      <div class="header-image">
+        {{!-- <img src="https://via.placeholder.com/150" alt="anh the"> --}}
+      </div>
+      <div class="header-content">
+        <h1>So thu tu:</h1>
+        <h1>Ho va ten:</h1>
+        <h1>Ma sinh vien:</h1>
+      </div>
+    </header>
+    <main class="flex">
+      <div class="main-sidebar">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/register">Register</a></li>
+        </ul>
+      </div>
+      <div class="main-content">
+        {{{body}}}
+      </div>
+    </main>
+    <footer>
+      <p>Footer</p>
+    </footer>
+  </div>
+</body>
+
+</html>

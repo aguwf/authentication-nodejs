@@ -1,0 +1,145 @@
+<style>
+    .change-password-form {
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .change-password-form h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .change-password-form form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .change-password-form .form-control {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    .change-password-form .form-control label {
+        margin-bottom: 5px;
+    }
+
+    .change-password-form .form-control input {
+        padding: 5px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .change-password-form button {
+        padding: 5px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #ddd;
+        cursor: pointer;
+    }
+
+    .change-password-form button:hover {
+        background-color: #ccc;
+    }
+
+    #logout {
+        padding: 5px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #ddd;
+        cursor: pointer;
+    }
+
+    #logout:hover {
+        background-color: #ccc;
+    }
+</style>
+
+<h1>{{title}}</h1>
+<p>Welcome to {{title}}</p>
+
+<div class="logout">
+    <button id="logout">Logout</button>
+</div>
+
+<div class="change-password-form">
+    <h1>Change Password</h1>
+    <form id="change-password-form-id">
+        <div class="form-control">
+            <label for="old-password">Old Password</label>
+            <input type="password" name="old-password" id="old-password" placeholder="Enter old password" required />
+        </div>
+        <div class="form-control">
+            <label for="new-password">New Password</label>
+            <input type="password" name="new-password" id="new-password" placeholder="Enter new password" required />
+        </div>
+        <div class="form-control">
+            <label for="confirm">Confirm Password</label>
+            <input type="password" name="confirm" id="confirm" placeholder="Confirm password" required />
+        </div>
+        <div class="form-control">
+            <button type="submit">Change Password</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Check if localStorage has a user
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    // If user is not present, redirect to login page
+    if (!user?._id) {
+        alert('Please login to continue');
+        window.location.href = '/login';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+
+        // Handle logout
+        const logoutBtn = document.getElementById('logout');
+
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('user');
+            window.location.href = '/login';
+        });
+
+        const changePasswordForm = document.getElementById('change-password-form-id');
+        changePasswordForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const oldPassword = document.getElementById('old-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirm = document.getElementById('confirm').value;
+            if (newPassword !== confirm) {
+                alert('Passwords do not match');
+                return;
+            }
+            const response = await fetch('/v1/change-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: user.username,
+                    oldPassword,
+                    newPassword,
+                    confirm,
+                })
+            });
+
+            if (!response.ok) {
+                console.log("🚀 ~ file: index.hbs ~ line 134 ~ changePasswordForm.addEventListener ~ await response.json()", response)
+                alert('Invalid credentials');
+                return;
+            }
+
+            const data = await response.json();
+            if (data.error) {
+                alert(data.error);
+            } else {
+                alert('Password changed successfully');
+            }
+        });
+    });
+</script>

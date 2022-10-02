@@ -1,0 +1,103 @@
+<style>
+    .login-form {
+        width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .login-form h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .login-form form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .login-form .form-control {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    .login-form .form-control label {
+        margin-bottom: 5px;
+    }
+
+    .login-form .form-control input {
+        padding: 5px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .login-form button {
+        padding: 5px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #ddd;
+        cursor: pointer;
+    }
+
+    .login-form button:hover {
+        background-color: #ccc;
+    }
+</style>
+<div class="login-form">
+    <h1>Login</h1>
+    <form id="login-form">
+        <div class="form-control">
+            <label for="username">Username</label>
+            <input type="username" name="username" id="username" placeholder="Enter username" />
+        </div>
+        <div class="form-control">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="Enter password" />
+        </div>
+        <button type="submit">Login</button>
+    </form>
+    <a href="/forgot-password">Forgot password</a>
+</div>
+
+<script>
+    // Check if localStorage has a user
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    // If user is present, redirect to main page
+    if (user?._id) {
+        window.location.href = '/';
+    }
+
+    const loginForm = document.getElementById('login-form');
+
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = loginForm.username.value;
+        const password = loginForm.password.value;
+
+        // use the fetch API to make a request to the server
+        fetch('/v1/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        })
+            .then(async (res) => {
+                if (!res.ok) {
+                    alert('Invalid username and/or password');
+                    return;
+                }
+                // set user to local storage
+                localStorage.setItem('user', JSON.stringify(await res.json()));
+                window.location.href = '/';
+            })
+            .catch(err => {
+                if (err) {
+                    alert(JSON.stringify(err))
+                }
+            })
+    })
+</script>

@@ -1,0 +1,92 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.container {
+  margin-left: 20rem;
+  margin-right: 20rem;
+  border: 1px solid #DDDDDD;
+  -webkit-box-shadow: 0 0 8px #D0D0D0;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.header {
+  padding: 0;
+  margin: 0;
+  background: #F5F5F5;
+  border-bottom: 1px solid #DDDDDD;
+}
+
+.header-image {
+  width: 113px;
+  height: 115px;
+  background: url("https://via.placeholder.com/113x115") no-repeat;
+}
+
+.header-content {
+  padding: 10px;
+  background: #F5F5F5;
+}
+
+.header-content h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+}
+
+.main-sidebar {
+  width: 200px;
+  padding: 10px;
+  background: #F5F5F5;
+  border-right: 1px solid #DDDDDD;
+}
+
+.main-sidebar ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.main-sidebar li {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid #DDDDDD;
+}
+
+.main-sidebar li:last-child {
+  border-bottom: none;
+}
+
+.main-sidebar a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.main-sidebar a:hover {
+  background: #EEEEEE;
+}
+
+.main-content {
+  flex: 1;
+  padding: 10px;
+}
+
+.main-content h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
