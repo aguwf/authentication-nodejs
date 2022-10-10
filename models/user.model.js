@@ -1,4 +1,4 @@
-const md5 = require("md5");
+const bcrypt = require('bcrypt');
 const { Schema, default: mongoose } = require("mongoose");
 
 const UserSchema = new Schema(
@@ -19,11 +19,13 @@ const UserSchema = new Schema(
 );
 
 UserSchema.statics.hashPassword = async function (password) {
-  return md5(password);
+  const salt = await bcrypt.genSalt(10);
+
+  return await bcrypt.hash(password, salt);
 };
 
 UserSchema.methods.comparePassword = async function (password) {
-  return this.password === md5(password);
+  return await bcrypt.compare(password, this.password);
 };
 
 const User = mongoose.model("User", UserSchema);

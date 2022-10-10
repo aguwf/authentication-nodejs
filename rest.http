@@ -20,7 +20,7 @@ content-type: application/json
 
 {
     "username": "Ternip",
-    "password": "ThaiTran@`456"
+    "password": "ThaiTran@`123"
 }
 
 ### Change password
